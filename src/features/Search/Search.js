@@ -26,6 +26,9 @@ import { ModalDetail } from './Modal'
 import { ModalBidSolicitor } from './Modal2'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ContextAuth } from '../../context/AuthContext'
+import { RiFileExcel2Fill } from 'react-icons/ri'
+import tableExport from 'antd-table-export'
+import { Excel } from 'antd-table-saveas-excel'
 const { Option } = Select
 export const Search = () => {
   const [visible, setVisible] = useState(false)
@@ -75,6 +78,37 @@ export const Search = () => {
   }
   const handleOnChangeTypeSearch = (e) => {
     setTypeSearch(e.target.value)
+  }
+  const handleDownloadExcel = () => {
+    const formatData = data.map((item) => ({
+      ...item,
+      package: item.package.title.text || item.package.title.textResult,
+      link: `https://dauthau.asia/${item.package.title.link}`,
+      bidSolicitor: item.bidSolicitor.title
+    }))
+    console.log(formatData)
+    const exportInstance = new tableExport(
+      formatData,
+      submitTypeSearch === 1
+        ? [
+            ...allColumns(setUrl, setVisible, setUrlBidSolicitor, setVisible2)[
+              typeInfo - 1
+            ],
+            {
+              title: 'Link',
+              dataIndex: 'link'
+            }
+          ]
+        : submitTypeSearch === 2
+        ? allColums2(setUrl, setVisible, setUrlBidSolicitor, setVisible2)[
+            typeInfo - 1
+          ]
+        : allColums3()[typeInfo - 1]
+    )
+    exportInstance.download(
+      `${moment(new Date()).format('HHmmss-DDMMYYYY')}`,
+      'xlsx'
+    )
   }
   return (
     <div
@@ -184,6 +218,20 @@ export const Search = () => {
           setVisible={setVisible2}
           url={urlBidSolicitor}
         />
+        <div
+          style={{
+            textAlign: 'right',
+            marginBottom: 10
+          }}
+        >
+          <Button
+            onClick={handleDownloadExcel}
+            size='large'
+            icon={<RiFileExcel2Fill />}
+          >
+            Excel
+          </Button>
+        </div>
         <Table
           loading={loadingData}
           columns={

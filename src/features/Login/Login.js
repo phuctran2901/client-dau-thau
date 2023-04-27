@@ -53,6 +53,11 @@ export const Login = () => {
             user: result
           })
           setLoadingLogin(false)
+
+          notification.success({
+            description: 'Đăng nhập thành công',
+            message: 'Thành công!'
+          })
           navigate('/')
         })
         .catch((err) => {

@@ -147,17 +147,20 @@ export function allColumns(
       dataIndex: 'package',
       key: 'package',
       render: (data) => {
+        console.log(data)
         return (
           <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
             <Button
               style={{ whiteSpace: 'unset', textAlign: 'left' }}
-              type='link'
+              type={data.title.link ? 'link' : 'text'}
               onClick={() => {
-                setUrl(data.title.link)
-                setVisible(true)
+                if (data.title.link) {
+                  setUrl(data.title.link)
+                  setVisible(true)
+                }
               }}
             >
-              {data.title.text}
+              {data.title.text || data.title.textResult}
             </Button>
           </div>
         )

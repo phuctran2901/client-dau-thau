@@ -74,7 +74,10 @@ export const Users = () => {
     {
       title: 'Role',
       dataIndex: 'role',
-      key: 'role'
+      key: 'role',
+      render: (data) => {
+        console.log(data)
+      }
     }
   ]
 

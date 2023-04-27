@@ -54,7 +54,10 @@ export const HeaderCustom = () => {
                 items: [
                   {
                     key: 1,
-                    label: 'Profile'
+                    label: 'Profile',
+                    onClick: () => {
+                      navigate('/profile')
+                    }
                   },
                   {
                     key: 2,

@@ -9,16 +9,7 @@ function allColums2(setUrl, setVisible, setUrlBidSolicitor) {
       render: (data) => {
         return (
           <div style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
-            <Button
-              style={{ whiteSpace: 'unset', textAlign: 'left' }}
-              type='link'
-              onClick={() => {
-                setUrl(data.title.link)
-                setVisible(true)
-              }}
-            >
-              {data.title.text}
-            </Button>
+            {data.title.text}
           </div>
         )
       }

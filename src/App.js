@@ -17,6 +17,7 @@ import HomePage from './pages/HomePage'
 import UsersPage from './pages/UsersPage'
 import { Avatar, Button, Layout } from 'antd'
 import Header, { HeaderCustom } from './components/Header'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   const [isAuth, setIsAuth] = useContext(ContextAuth)
@@ -34,7 +35,7 @@ function App() {
 
   return (
     <Router>
-      <Layout>
+      <Layout style={{ height: '100vh' }}>
         {isAuth.isAuth && <HeaderCustom />}
         <Routes>
           <Route element={<LoginPage />} path={'/login'} key='/login' />
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />} path='/users'>
             <Route element={<UsersPage />} path={'/users'} />
+          </Route>
+          <Route element={<PrivateRoute />} path='/profile'>
+            <Route element={<ProfilePage />} path={'/profile'} />
           </Route>
         </Routes>
       </Layout>
